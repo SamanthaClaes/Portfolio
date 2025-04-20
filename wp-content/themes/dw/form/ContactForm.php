@@ -33,37 +33,34 @@ class ContactForm
     {
         // Valider les données envoyées.
         if(is_array($errors = $this->validate($data))) {
-            // Mettre les erreurs de validation en session pour pouvoir les afficher sur la page suivante :
-            $_SESSION['contact_form_errors'] = $errors;
-            // Retourner à la page précédente pour afficher les erreurs de validation :
+            // En cas de problème de validation, renvoyer l'utilisateur sur la page précédente (où se trouvait le formulaire) afin d'y afficher les erreurs de validation.
+            $_SESSION['dw_contact_form_errors'] = $errors;
             wp_safe_redirect($_SERVER['HTTP_REFERER']);
-            exit();
+            exit;
         }
 
-        // Nettoyer les données.
+        // Nettoyer les données (sanitize).
         $data = $this->cleanData($data);
-
-        // Sauvegarder le formulaire envoyé en base de données.
-        wp_insert_post([
-            'post_type' => 'contact_message',
-            'post_title' => $data['firstname'].' '.$data['lastname'],
-            'post_content' => $this->generateEmailContent($data),
-            'post_status' => 'publish',
-        ]);
 
         // Envoyer un mail de notification.
         wp_mail(
             to: 'toon@whitecube.be',
-            subject: 'Nouveau message de contact',
-            message: $this->generateEmailContent($data),
+            subject: 'Nouveau message "'.$data['subject'].'"',
+            message: $this->generateMailContent($data),
         );
 
-        // Retourner à la page précédente pour afficher un message de succès.
-        // Mettre un message de succès en session pour pouvoir l'afficher sur la page suivante :
-        $_SESSION['contact_form_success'] = 'Merci, '.$data['firstname'].'! Votre message a bien été envoyé.';
-        // Retourner à la page précédente pour afficher les erreurs de validation :
+        // Sauvegarder l'envoi de formulaire en base de données.
+        wp_insert_post([
+            'post_type' => 'contact_message',
+            'post_status' => 'publish',
+            'post_title' => $data['firstname'].' '.$data['lastname'],
+            'post_content' => $this->generateMailContent($data),
+        ]);
+
+        // Renvoyer l'utilisateur vers la page précédente (où se trouvait le formulaire) afin d'y afficher un message de succès (feedback).
+        $_SESSION['dw_contact_form_success'] = 'Merci '.$data['firstname'].', votre message a bien été envoyé.';
         wp_safe_redirect($_SERVER['HTTP_REFERER']);
-        exit();
+        exit;
     }
 
     protected function validate(array $data): bool|array
@@ -73,9 +70,9 @@ class ContactForm
         foreach ($this->rules as $field => $rules) {
             foreach ($rules as $rule) {
                 $method = 'check_'.$rule;
-                $validation = $this->$method($field, $data[$field] ?? null);
-                if($validation === true) continue;
-                $errors[$field] = $validation;
+                $error = $this->$method($field, $data[$field] ?? null);
+                if(! is_string($error)) continue;
+                $errors[$field] = $error;
                 break;
             }
         }
@@ -89,16 +86,16 @@ class ContactForm
             return true;
         }
 
-        return 'Veuillez renseigner ce champ.';
+        return 'Ce champ est requis.';
     }
 
-    protected function check_email(string $field, mixed $value): bool|string
+    protected function check_valid_email(string $field, mixed $value): bool|string
     {
         if(filter_var($value, FILTER_VALIDATE_EMAIL)) {
             return true;
         }
 
-        return 'Adresse invalide.';
+        return 'L\'adresse mail n\'est pas valide.';
     }
 
     protected function check_no_test(string $field, mixed $value): bool|string
@@ -118,25 +115,23 @@ class ContactForm
     {
         $cleaned = [];
 
-        foreach($this->sanitizers as $field => $callback) {
+        foreach ($this->sanitizers as $field => $callback) {
             $cleaned[$field] = call_user_func($callback, $data[$field] ?? null);
         }
 
         return $cleaned;
     }
 
-    protected function generateEmailContent(array $data): string
+    protected function generateMailContent(array $data): string
     {
-        return 'Bonjour,'.PHP_EOL
-            .'Vous avez un nouveau message de '.$data['firstname'].' '.$data['lastname'].':'.PHP_EOL
-            .$data['message'].PHP_EOL.PHP_EOL
-            .'----'.PHP_EOL
-            .'Adresse mail: '.$data['email'];
+        return 'Bonjour,'.PHP_EOL.PHP_EOL
+            .'Un nouveau message a été envoyé par le formulaire de contact.'.PHP_EOL.PHP_EOL
+            .'Nom: '.$data['lastname'].PHP_EOL
+            .'Prénom: '.$data['firstname'].PHP_EOL
+            .'E-mail: '.$data['email'].PHP_EOL
+            .'Sujet: '.$data['subject'].PHP_EOL
+            .'Message:'.PHP_EOL
+            .$data['message'];
     }
 
 }
-
-
-
-
-

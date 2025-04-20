@@ -1,76 +1,48 @@
+<body class="body_projects">
 <?php get_header(); ?>
-<?php /* Template Name: Template "Contact" */ ?>
-    <h2 class="title_h2">Me contacter</h2>
-<?php
+<?php /* template Name: Template "template-project */
 // On ouvre "la boucle" (The Loop), la structure de contrôle
 // de contenu propre à Wordpress:
-if(have_posts()): while(have_posts()): the_post(); ?>
 
-    <section class="contact">
-        <div class="contact__content">
-            <?php the_content(); ?>
-        </div>
-        <div class="contact__form">
-            <?php
+?>
 
-            $errors = $_SESSION['dw_contact_form_errors'] ?? [];
-            unset($_SESSION['dw_contact_form_errors']);
+<h2 class="show_project">Découvrez mes projets</h2>
 
-            $success = $_SESSION['dw_contact_form_success'] ?? false;
-            unset($_SESSION['dw_contact_form_success']);
-            if($success): ?>
-            <p class="contact__success"><?=$success?></p>
-            <?php else: ?>
-            <form action="<?= esc_url(admin_url('admin-post.php')); ?>" method="POST" class="form">
-                <fieldset class="form__fields">
-                    <div class="field">
-                        <label for="firstname" class="field__label">Prénom</label>
-                        <input type="text" name="firstname" id="firstname" class="field__input">
-                        <?php if(isset($errors['firstname'])): ?>
-                            <p class="field__error"><?= $errors['firstname']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="field">
-                        <label for="lastname" class="field__label">Nom</label>
-                        <input type="text" name="lastname" id="lastname" class="field__input">
-                        <?php if(isset($errors['lastname'])): ?>
-                            <p class="field__error"><?= $errors['lastname']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="field">
-                        <label for="email" class="field__label">Adresse mail</label>
-                        <input type="email" name="email" id="email" class="field__input">
-                        <?php if(isset($errors['email'])): ?>
-                            <p class="field__error"><?= $errors['email']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="field">
-                        <label for="subject" class="field__label">Sujet</label>
-                        <input type="text" name="subject" id="subject" class="field__input">
-                        <?php if(isset($errors['subject'])): ?>
-                            <p class="field__error"><?= $errors['subject']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="field">
-                        <label for="message" class="field__label">Message</label>
-                        <textarea name="message" id="message" class="field__input"></textarea>
-                        <?php if(isset($errors['message'])): ?>
-                            <p class="field__error"><?= $errors['message']; ?></p>
-                        <?php endif; ?>
-                    </div>
-                </fieldset>
-                <div class="form__submit">
-                    <?php
-                    // Cet input hidden permet de spécifier à WP (via l'appel d'URL "admin-post.php") que c'est notre fonction de traitement "dw_handle_contact_form_submit" qu'il faut appeler lorsque ces données seront envoyées.
-                    ?>
-                    <input type="hidden" name="action" value="dw_contact_form_submit">
-                    <button type="submit" class="btn">Envoyer</button>
-                </div>
-            </form>
-            <?php endif; ?>
-        </div>
-    </section>
-    <div class="svg_cat">
+<div class="grid-projects">
+    <?php
+    $projects = new WP_Query([
+        'post_type' => 'project',
+        'order' => 'ASC',
+        'posts_per_page' => 4,
+    ]);
+
+    if ($projects->have_posts()): while ($projects->have_posts()): $projects->the_post();
+        $title = get_the_title();
+        $image = get_field('image', get_the_ID());
+        $text = get_field('text', get_the_ID());
+        $permalink = get_the_permalink();
+        ?>
+        <article class="project-card">
+            <!-- Lien couvrant toute la carte -->
+            <a href="<?= get_permalink(); ?>" class="project__link">
+                <span class="sro"><?= __('Accéder à ce projet') ?></span>
+            </a>
+
+            <!-- Contenu de la carte -->
+            <div class="div__card__container">
+                <header class="title__head">
+                    <h3 class="__header__item"><?= $title ?></h3>
+                </header>
+                <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
+            </div>
+        </article>
+    <?php endwhile; else: ?>
+        <p>Je n'ai aucun projet à vous montrer.</p>
+    <?php endif; ?>
+</div>
+
+
+<div class="svg_cat">
     <svg class="surprise" id="Chat" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1140 1024" width="200" height="200">
         <defs>
             <style>
@@ -94,11 +66,6 @@ if(have_posts()): while(have_posts()): the_post(); ?>
         <path id="svg_8" class="cat"
               d="M943.4,2148.8c-16.4-1.7-78-20-90.9-29.1-20.9-14.9-19.1-26.8-7.7-47.5,4-7.4,36.5-47.3,42.6-47.4,7.2,27.8,11.6,58.8,30.2,81.9,14.2,17.7,34.9,27.3,54.4,37.7,2.5,1.3,5.6-1.4,4.4,4.5-10.7-.8-22.5,1.1-33,0h0Z"/>
     </svg>
-    </div>
-
-<?php
-    // On ferme "la boucle" (The Loop):
-endwhile; else: ?>
-    <p>Pas de contenu à afficher.</p>
-<?php endif; ?>
+</div>
 <?php get_footer(); ?>
+</body>

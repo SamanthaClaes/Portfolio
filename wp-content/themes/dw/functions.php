@@ -1,8 +1,5 @@
 <?php
 
-// Charger les champs ACF exportés :
-include_once('acf.php');
-
 if(session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -24,6 +21,8 @@ add_action('wp_enqueue_scripts', function () {
     wp_dequeue_style('global-styles');
 }, 20);
 
+add_filter('show_admin_bar', '__return_false');
+
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
 remove_action('wp_head', 'wp_print_comments');
@@ -32,50 +31,64 @@ remove_action('wp_head', 'wp_oembed_add_host_js');
 remove_action('wp_head', 'rest_output_link_wp_head');
 remove_action('wp_head', 'wp_generator');
 
-$manifestPath = get_theme_file_path('public/.vite/manifest.json');
+function enqueue_assets_from_vite_manifest(): void
+{
+    $manifestPath = get_theme_file_path('public/.vite/manifest.json');
 
-if (file_exists($manifestPath)) {
-    $manifest = json_decode(file_get_contents($manifestPath), true);
+    if (file_exists($manifestPath)) {
+        $manifest = json_decode(file_get_contents($manifestPath), true);
 
-    if (isset($manifest['wp-content/themes/dw/resources/js/main.js'])) {
-        wp_enqueue_script('dw', get_theme_file_uri('public/' . $manifest['wp-content/themes/dw/ressources/js/main.js']['file']), [], null, true);
-    }
+        // Vérifier et ajouter le fichier JavaScript
+        if (isset($manifest['wp-content/themes/dw/resources/js/main.js'])) {
+            wp_enqueue_script('dw', get_theme_file_uri('public/' . $manifest['wp-content/themes/dw/resources/js/main.js']['file']), [], null, true);
+        }
 
-    if (isset($manifest['wp-content/themes/dw/resources/css/styles.scss'])) {
-        wp_enqueue_style('dw', get_theme_file_uri('public/' . $manifest['wp-content/themes/dw/ressources/css/styles.scss']['file']));
+        // Vérifier et ajouter le fichier CSS
+        if (isset($manifest['wp-content/themes/dw/resources/css/styles.scss'])) {
+            wp_enqueue_style('dw', get_theme_file_uri('public/' . $manifest['wp-content/themes/dw/resources/css/styles.scss']['file']));
+        }
     }
 }
+//enqueue_assets_from_vite_manifest();
 
+// 1. Charger un fichier "public" (asset/image/css/script/...) pour le front-end sans que cela ne s'applique à l'admin.
+// 1. Charger un fichier "public" (asset/image/css/script/...) pour le front-end sans que cela ne s'applique à l'admin.
+function dw_asset(string $file): string
+{
+    $manifestPath = get_theme_file_path('public/.vite/manifest.json');
+
+    if (file_exists($manifestPath)) {
+        $manifest = json_decode(file_get_contents($manifestPath), true);
+
+        if (isset($manifest['wp-content/themes/dw/resources/js/main.js']) && $file === 'js') {
+            return get_theme_file_uri('public/' . $manifest['wp-content/themes/dw/resources/js/main.js']['file']);
+        }
+
+        if (isset($manifest['wp-content/themes/dw/resources/css/styles.scss']) && $file === 'css') {
+            return get_theme_file_uri('public/' . $manifest['wp-content/themes/dw/resources/css/styles.scss']['file']);
+        }
+    }
+
+    return get_template_directory_uri() . '/public/' . $file;
+}
 // Activer l'utilisation des vignettes (image de couverture) sur nos post types:
-add_theme_support('post-thumbnails', ['recipe', 'trip']);
+add_theme_support('post-thumbnails', ['recipe', 'trip',]);
 
 // Enregistrer de nouveaux "types de contenu", qui seront stockés dans la table
 // "wp_posts", avec un identifiant de type spécifique dans la colonne "post_type":
 
-register_post_type('recipe', [
-    'label' => 'Recettes',
-    'description' => 'Les recettes liées à nos voyages',
-    'menu_position' => 7,
-    'menu_icon' => 'dashicons-carrot',
-    'public' => true,
-    'has_archive' => true,
-    'rewrite' => [
-        'slug' => 'recettes',
-    ],
-    'supports' => ['title', 'excerpt', 'editor', 'thumbnail'],
-]);
 
-register_post_type('trip', [
-    'label' => 'Voyages',
-    'description' => 'Les voyages que nous avons réalisés',
+register_post_type('project', [
+    'label' => 'Projets',
+    'description' => 'Mes projets réalisés',
     'menu_position' => 6,
-    'menu_icon' => 'dashicons-airplane',
+    'menu_icon' => 'dashicons-format-gallery',
     'public' => true,
-    'has_archive' => true,
+    'has_archive' => false,
     'rewrite' => [
-        'slug' => 'voyages',
+        'slug' => 'projects',
     ],
-    'supports' => ['title', 'excerpt', 'editor', 'thumbnail'],
+    'supports' => ['title', 'thumbnail'],
 ]);
 
 // Paramétrer des tailles d'images pour le générateur de thumbnails de Wordpress :
@@ -88,6 +101,7 @@ add_image_size('travel-header', 1920, 400, true);
 // Enregistrer les menus de navigation en fonction de l'endroit où ils sont exploités :
 
 register_nav_menu('header', 'Le menu de navigation principal en haut de la page.');
+register_nav_menu('main', 'Le menu du main de la page.');
 register_nav_menu('footer', 'Le menu de navigation de fin de page.');
 
 // Créer une nouvelle fonction qui permet de retourner un menu de navigation formaté en un
@@ -125,26 +139,7 @@ function dw_get_navigation_links(string $location): array
 
 // ajouter taxonomie sir les post_types
 
-register_taxonomy('course', ['recipe'], [
-    'labels' => [
-        'name' => 'services',
-        'singular_name' => 'service',
-    ],
-    'description' => 'A quel moment ce plat intervient-il ?',
-    'public' => true,
-    'hierarchical' => true,
-    'show_tagcloud' => false,
-]);
-register_taxonomy('diet', ['recipe'], [
-    'labels' => [
-        'name' => 'Régimes alimentaires',
-        'singular_name' => 'Régime',
-    ],
-    'description' => 'A quel type de régime ce plat intervient-il ?',
-    'public' => true,
-    'hierarchical' => true,
-    'show_tagcloud' => false,
-]);
+
 
 
 function hepl_trad_load_textdomain(): void
@@ -199,36 +194,17 @@ add_action('acf/init', 'create_site_options_page');
 add_action('admin_post_dw_contact_form_submit', 'dw_handle_contact_form_submit');
 add_action('admin_post_nopriv_dw_contact_form_submit', 'dw_handle_contact_form_submit');
 
-register_post_type('contact_message', [
-
-
-    'label' => 'Messages de contact',
-
-
-    'description' => 'Les envois de formulaire via la page de contact',
-
-
-    'menu_position' => 10,
-
-
-    'menu_icon' => 'dashicons-email',
-
-
-    'public' => false,
-
-
-    'show_ui' => true,
-
-
-    'has_archive' => false,
-
-
-    'supports' => ['title','editor'],
-
-
-]);
-
 require_once(__DIR__.'/form/ContactForm.php');
+
+register_post_type('contact_message', [
+    'label' => 'Messages',
+    'description' => 'Les formulaires envoyés sur la page de contact',
+    'public' => false,
+    'show_ui' => true,
+    'menu_position' => 10,
+    'menu_icon' => 'dashicons-email',
+    'supports' => ['title','editor'],
+]);
 
 function dw_handle_contact_form_submit()
 {
@@ -249,17 +225,98 @@ function dw_handle_contact_form_submit()
 }
 
 
+/*ajouter la photo de moi sur la page about*/
+add_action('acf/init', function() {
+    acf_add_local_field_group([
+        'key' => 'group_about_image',
+        'title' => 'Photo page About',
+        'fields' => [
+            [
+                'key' => 'field_about_me_img',
+                'label' => 'Image de moi',
+                'name' => 'about_me_img',
+                'type' => 'image',
+                'return_format' => 'array', // Retourne un tableau [url, alt, etc.]
+                'preview_size' => 'medium'
+            ]
+        ],
+        'location' => [[[
+            'param' => 'page',        // Type cible
+            'operator' => '==',        // Opérateur
+            'value' => 'about',       // Slug de la page
+            // OU 'value' => '123'    // ID de la page
+        ]]],
+    ]);
+});
+add_image_size('about_me', 400, 600, true);
 
+/**
+ * Génère une image responsive au format <picture> avec les attributs srcset et sizes.
+ *
+ * Cette fonction accepte différents formats d'entrée pour l'image (ID, tableau associatif ou URL),
+ * et retourne un bloc HTML contenant une balise <picture> incluant une balise <img>.
+ * Elle utilise les fonctions natives de WordPress pour récupérer les différentes tailles d'image
+ * et ainsi permettre au navigateur de choisir la version la plus adaptée à l'affichage.
+ *
+ * @param mixed $image    ID de l'image, tableau contenant la clé 'ID' ou URL de l'image.
+ * @param array $settings Tableau d'options complémentaires :
+ *                        - 'lazy'    => attribut loading (default: "eager").
+ *                        - 'classes' => classes CSS à ajouter à la balise <img>.
+ *
+ * @return bool|string Retourne le code HTML de l'image responsive, ou une chaîne vide si l'image est invalide.
+ */
+function responsive_image($image, $settings): bool|string
+{
+    if (empty($image)) {
+        return '';
+    }
 
+    $image_id = '';
 
+    if (is_numeric($image)) {
+        // si c'est un nombre, on considère que cela s'agit d'un ID
+        $image_id = $image;
+    } elseif (is_array($image) && isset($image['ID'])) {
+        // Si c'est un tableau associatif contenant la clé ID, on récupère cet ID
+        $image_id = $image['ID'];
+    } else {
+        // Générer un tag img par défaut
+    }
 
+// Récupération des informations de l'image depuis la base de données.
+    $alt = get_post_meta($image_id, '_wp_attachment_image_alt', true); // Attribut alt
+    $image_post = get_post($image_id); // Object WP_Post de l'image
+    $title = $image_post->post_title ?? '';
+    $name = $image_post->post_name ?? '';
 
+// Récupération des URLS et attributs pour l'image en taille "full"
+// Wordpress génère automatiquement un srcset basé sur les tailles existantes
+    $src = wp_get_attachment_image_url($image_id, 'medium');
+    $srcset = wp_get_attachment_image_srcset($image_id, 'medium');
+    $sizes = wp_get_attachment_image_sizes($image_id, 'medium');
 
+// Gestion de l'attribut de chargement "lazy" ou "eager" selon les paramètres.
+    $lazy = $settings['lazy'] ?? 'eager';
 
+// Gestion des classes (si des classes sont fournies dans $settings).
+    $classes = '';
+    if (!empty($settings['classes'])) {
+        $classes = is_array($settings['classes']) ? implode(' ', $settings['classes']) : $settings['classes'];
+    }
 
-
-
-
-
-
-
+    ob_start();
+    ?>
+    <picture>
+        <!-- Ici, vous pouvez ajouter manuellement des balises <source> pour d'autres formats (WebP, AVIF, etc.)
+             si ces formats sont disponibles via un plugin ou un traitement personnalisé. -->
+        <img
+            src="<?= esc_url($src) ?>"
+            alt="<?= esc_attr($alt) ?>"
+            loading="<?= esc_attr($lazy) ?>"
+            srcset="<?= esc_attr($srcset) ?>"
+            sizes="<?= esc_attr($sizes) ?>"
+            class="<?= esc_attr($classes) ?>">
+    </picture>
+    <?php
+    return ob_get_clean();
+}
