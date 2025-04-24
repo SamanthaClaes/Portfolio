@@ -12,7 +12,7 @@
     <?php
     $projects = new WP_Query([
         'post_type' => 'project',
-        'order' => 'ASC',
+        'order' => 'asc',
         'posts_per_page' => 4,
     ]);
 

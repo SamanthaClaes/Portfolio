@@ -49,6 +49,7 @@ function enqueue_assets_from_vite_manifest(): void
         }
     }
 }
+
 //enqueue_assets_from_vite_manifest();
 
 // 1. Charger un fichier "public" (asset/image/css/script/...) pour le front-end sans que cela ne s'applique à l'admin.
@@ -93,10 +94,6 @@ register_post_type('project', [
 
 // Paramétrer des tailles d'images pour le générateur de thumbnails de Wordpress :
 
-// Sans recadrage :
-add_image_size('travel-side', 420, 420);
-// Avec recadrage :
-add_image_size('travel-header', 1920, 400, true);
 
 // Enregistrer les menus de navigation en fonction de l'endroit où ils sont exploités :
 
@@ -248,7 +245,7 @@ add_action('acf/init', function() {
         ]]],
     ]);
 });
-add_image_size('about_me', 400, 600, true);
+
 
 /**
  * Génère une image responsive au format <picture> avec les attributs srcset et sizes.
@@ -288,6 +285,7 @@ function responsive_image($image, $settings): bool|string
     $image_post = get_post($image_id); // Object WP_Post de l'image
     $title = $image_post->post_title ?? '';
     $name = $image_post->post_name ?? '';
+
 
 // Récupération des URLS et attributs pour l'image en taille "full"
 // Wordpress génère automatiquement un srcset basé sur les tailles existantes

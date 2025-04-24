@@ -69,6 +69,11 @@ if(have_posts()): while(have_posts()): the_post(); ?>
             </form>
             <?php endif; ?>
         </div>
+        <section class="coord">
+           <h2>Mes coordonnées</h2>
+            <span>Mon adresse mail : Samantha.claes@student.hepl.be</span>
+            <span>Mon Numéro de téléphone : 0496 78 93 03</span>
+        </section>
     </section>
     <div class="svg_cat">
     <svg class="surprise" id="Chat" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1140 1024" width="200" height="200">
