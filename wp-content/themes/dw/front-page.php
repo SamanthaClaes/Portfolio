@@ -25,7 +25,7 @@ if (have_posts()): while (have_posts()): the_post(); ?>
             <?php
             $projects = new WP_Query([
                 'post_type' => 'project',
-                'orderby' => 'rand',
+                'orderby' => 'asc',
                 'posts_per_page' => 3,
             ]);
 

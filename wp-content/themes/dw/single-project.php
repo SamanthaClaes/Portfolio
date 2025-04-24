@@ -9,7 +9,7 @@
         <?php
         $projects = new WP_Query([
             'post_type' => 'project',
-            'order' => 'ASC',
+            'orderby' => 'rand',
             'posts_per_page' => 3,
             'post__not_in'=>[$post->ID]
         ]);

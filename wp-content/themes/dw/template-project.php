@@ -43,7 +43,8 @@
 
 
 <div class="svg_cat">
-    <svg class="surprise" id="Chat" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1140 1024" width="200" height="200">
+    <svg class="surprise" id="Chat" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1140 1024" width="200"
+         height="200">
         <defs>
             <style>
                 .cat {
@@ -67,5 +68,34 @@
               d="M943.4,2148.8c-16.4-1.7-78-20-90.9-29.1-20.9-14.9-19.1-26.8-7.7-47.5,4-7.4,36.5-47.3,42.6-47.4,7.2,27.8,11.6,58.8,30.2,81.9,14.2,17.7,34.9,27.3,54.4,37.7,2.5,1.3,5.6-1.4,4.4,4.5-10.7-.8-22.5,1.1-33,0h0Z"/>
     </svg>
 </div>
+
+<?php
+$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+$taxonomy = isset($_GET['filter']) ? sanitize_text_field($_GET['filter']) : '';
+$args = [
+    'post_type' => 'travel',
+    'posts_per_page' => 4,
+    'paged' => $paged,
+];
+if ($taxonomy !== '') {
+    $args['tax_query'] = [
+        [
+            'taxonomy' => 'travel_type',
+            'field' => 'slug',
+            'terms' => $taxonomy,
+        ]
+    ];
+}
+$query = new WP_Query($args);
+?>
+<?php
+echo paginate_links(array(
+    'total' => $query->max_num_pages,
+    'current' => $paged,
+    'prev_text' => __hepl('&laquo; Précédent'),
+    'next_text' => __hepl('Suivant &raquo;'),
+));
+echo '</div>';
+?>
 <?php get_footer(); ?>
 </body>

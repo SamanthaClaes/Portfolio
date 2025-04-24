@@ -25,7 +25,7 @@
                     <span></span>
                     <span></span>
                 </label>
-                <div class="nav_menu_item">
+                <div class="menu_links">
                     <?php
                     $links = dw_get_navigation_links('header');
                     foreach ($links as $link):?>
