@@ -85,7 +85,7 @@ register_post_type('project', [
     'menu_position' => 6,
     'menu_icon' => 'dashicons-format-gallery',
     'public' => true,
-    'has_archive' => false,
+    'has_archive' => true,
     'rewrite' => [
         'slug' => 'projects',
     ],
@@ -304,7 +304,7 @@ function responsive_image($image, $settings): bool|string
 
     ob_start();
     ?>
-    <picture>
+    <picture class="<?= esc_attr($classes) ?>--picture">
         <!-- Ici, vous pouvez ajouter manuellement des balises <source> pour d'autres formats (WebP, AVIF, etc.)
              si ces formats sont disponibles via un plugin ou un traitement personnalisé. -->
         <img
@@ -318,3 +318,14 @@ function responsive_image($image, $settings): bool|string
     <?php
     return ob_get_clean();
 }
+
+register_taxonomy('project_type', ['project'], [
+    'labels' => [
+        'name' => 'Types de projet',
+        'singular_name' => 'Type de projet',
+    ],
+    'public' => true,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'rewrite' => ['slug' => 'project_type'],
+]);

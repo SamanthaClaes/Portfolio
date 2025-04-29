@@ -8,7 +8,7 @@
     "serve": "browser-sync start --proxy 'http://portfolio.test' --files 'wp-content/themes/dw/public/**/*' --no-https --port 8000"
   },
   "keywords": [],
-  "author": "Dylan Jacquet",
+  "author": "Samantha Claes",
   "license": "ISC",
   "description": "",
   "devDependencies": {

@@ -8,14 +8,48 @@
 
 <h2 class="show_project">Découvrez mes projets</h2>
 
+<?php
+$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+$taxonomy = isset($_GET['filter']) ? sanitize_text_field($_GET['filter']) : '';
+$args = [
+    'post_type' => 'project',
+    'posts_per_page' => 4,
+    'paged' => $paged,
+];
+if ($taxonomy !== '') {
+    $args['tax_query'] = [
+        [
+            'taxonomy' => 'project_type',
+            'field' => 'slug',
+            'terms' => $taxonomy,
+        ]
+    ];
+}
+
+$query = new WP_Query($args);
+?>
+<?php
+$terms = get_terms([
+    'taxonomy' => 'project_type',
+    'hide_empty' => false,
+]);
+?>
+<div class="">
+    <a href="<?= esc_url(get_permalink(get_the_ID())) ?>" class="<?= ($taxonomy === '') ? 'active-project' : ''; ?>">
+        <?= __('Tout', 'hepl-trad'); ?>
+    </a>
+    <?php foreach ($terms as $term): ?>
+        <a href="<?= esc_url(get_permalink()) . '?filter=' . $term->slug; ?>"
+           class="<?= ($taxonomy === $term->slug) ? 'active-project' : ''; ?>">
+            <?= esc_html($term->name); ?>
+        </a>
+    <?php endforeach; ?>
+
+</div>
+
 <div class="grid-projects">
     <?php
-    $projects = new WP_Query([
-        'post_type' => 'project',
-        'order' => 'asc',
-        'posts_per_page' => 4,
-    ]);
-
+    $projects = $query;
     if ($projects->have_posts()): while ($projects->have_posts()): $projects->the_post();
         $title = get_the_title();
         $image = get_field('image', get_the_ID());
@@ -30,9 +64,7 @@
 
             <!-- Contenu de la carte -->
             <div class="div__card__container">
-                <header class="title__head">
-                    <h3 class="__header__item"><?= $title ?></h3>
-                </header>
+                <h3 class="__header__item"><?= $title ?></h3>
                 <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
             </div>
         </article>
@@ -70,32 +102,28 @@
 </div>
 
 <?php
-$paged = get_query_var('paged') ? get_query_var('paged') : 1;
-$taxonomy = isset($_GET['filter']) ? sanitize_text_field($_GET['filter']) : '';
-$args = [
-    'post_type' => 'travel',
-    'posts_per_page' => 4,
-    'paged' => $paged,
-];
-if ($taxonomy !== '') {
-    $args['tax_query'] = [
-        [
-            'taxonomy' => 'travel_type',
-            'field' => 'slug',
-            'terms' => $taxonomy,
-        ]
-    ];
-}
-$query = new WP_Query($args);
-?>
-<?php
-echo paginate_links(array(
-    'total' => $query->max_num_pages,
-    'current' => $paged,
-    'prev_text' => __hepl('&laquo; Précédent'),
-    'next_text' => __hepl('Suivant &raquo;'),
-));
-echo '</div>';
+if ($query->have_posts()) :
+    while ($query->have_posts()) : $query->the_post();
+        ?>
+        <article>
+            <?php $title = get_field('headline', get_the_ID()) ?>
+            <div><?php the_excerpt(); ?></div>
+        </article>
+    <?php
+    endwhile;
+    echo '<div class="pagination">';
+    echo paginate_links(array(
+        'total' => $query->max_num_pages,
+        'current' => $paged,
+        'prev_text' => __hepl('&laquo; Précédent'),
+        'next_text' => __hepl('Suivant &raquo;'),
+    ));
+    echo '</div>';
+    wp_reset_postdata();
+else :
+    echo '<p>Aucun projet trouvé.</p>';
+endif;
 ?>
 <?php get_footer(); ?>
 </body>
+

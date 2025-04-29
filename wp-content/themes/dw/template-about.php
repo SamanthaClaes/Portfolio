@@ -11,40 +11,6 @@
 <?php
 //on ouvre "la boucle" (the loop), la strcuture de contrôle de contenu propre a wp
 if (have_posts()) : while (have_posts()) : the_post(); ?>
-    <section>
-        <h2 class="section_item_title">Mes compétences</h2>
-    </section>
-
-    <div>
-        <ul class="ul_div_flex">
-            <li class="card_li top-card">
-                <h3 class="card_title">HTML</h3>
-                <span class="span_item_">Langage de balisage utilisé pour structurer le contenu d’une page web</span>
-            </li>
-            <li class="card_li top-card">
-                <h3 class="card_title">CSS</h3>
-                <span class="span_item_">Langage de style servant à définir l’apparence des pages web</span>
-            </li>
-            <li class="card_li top-card">
-                <h3 class="card_title">Javascript</h3>
-                <span class="span_item_">Langage de programmation permettant d’ajouter de l’interactivité et du dynamisme au site web</span>
-            </li>
-            <li class="card_li top-card">
-                <h3 class="card_title">PHP</h3>
-                <span class="span_item_">Langage de programmation côté serveur, souvent utilisé pour générer du contenu dynamique</span>
-            </li>
-
-            <li class="card_li bottom-card">
-                <h3 class="card_title">MySql</h3>
-                <span class="span_item_">MySQL est un système de gestion de base de données, souvent utilisé pour stocker et gérer des données côté serveur</span>
-            </li>
-            <li class="card_li bottom-card">
-                <h3 class="card_title">Typescript</h3>
-                <span class="span_item_">Extension de Javascript qui ajoute un typage statique, rendant le code plus structuré et facile à maintenir</span>
-            </li>
-        </ul>
-    </div>
-
     <section class="svg_cat">
         <svg class="surprise" id="Chat" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1140 1024"
              width="200" height="200">

@@ -46,9 +46,7 @@ if (have_posts()): while (have_posts()): the_post(); ?>
                     </a>
 
                     <div class="div__card__container">
-                        <header class="title__head">
                             <h3 class="__header__item"><?= $title ?></h3>
-                        </header>
                         <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
                     </div>
 
