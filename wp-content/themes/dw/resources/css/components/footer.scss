@@ -1,0 +1,34 @@
+@use "../utils/variables" as variables;
+
+
+.page_about {
+  font-family: variables.$font-body;
+  font-size: 0.875rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: variables.$secondary-color;
+  padding: 1.25rem;
+
+  .ul_footer {
+    list-style-type: none;
+    gap: 0.625rem;
+    line-height: 1.25rem;
+  }
+
+  .__svg {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}

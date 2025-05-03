@@ -1,0 +1,231 @@
+@use "../utils/variables" as variables;
+.__title-h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  font-family: variables.$font-title;
+  line-height: 50px;
+  color: variables.$dark-font;
+}
+
+.__title-h2 {
+  font-family: variables.$font-body;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 50px;
+}
+
+.__container_button {
+  display: flex;
+  justify-content: center;
+
+  .div_item {
+    background: variables.$main-color;
+    font-family: variables.$font-title;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 10rem;
+    font-size: 2rem;
+    line-height: 50px;
+
+    .button_main_menu {
+      font-family: variables.$font-title;
+      font-size: 2rem;
+      text-decoration: none;
+      color: variables.$dark-font;
+    }
+  }
+}
+.__header__item {
+  font-family: variables.$font-title;
+  font-size: 1.25rem;
+  margin: 10px 0;
+  text-align: center;
+  text-decoration: none;
+  color: variables.$dark-font;
+
+}
+a{
+  text-decoration: none;
+}
+
+.__div_item_project {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.projects {
+  transition: transform 0.3s ease, box-shadow 0.5s ease;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.project {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  justify-items: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .project__link {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    text-indent: -9999px;
+    text-decoration: none;
+    color: variables.$dark-font;
+  }
+
+  .div__card__container {
+    position: relative;
+    z-index: 1;
+    padding: 1rem;
+    text-align: center;
+
+    .story__fig {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.show_project {
+  font-family: variables.$font-title;
+  font-size: 1.25rem;
+  margin: 10px;
+  text-align: center;
+  padding: 20px;
+}
+
+.section_item {
+  font-family: variables.$font-title;
+  font-size: 1.5rem;
+  margin: 40px;
+}
+
+
+.svg_cat {
+  display: flex;
+  justify-content: end;
+
+  &.centered {
+    justify-content: center;
+    margin-top: 30px;
+  }
+}
+
+.sro {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+.grid-projects {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+// Site layout structure
+.site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  main {
+    flex: 1;
+  }
+}
+.svg_cat{
+  fill: none;
+  stroke: #000;
+  stroke-miterlimit: 10;
+}
+
+// Responsive design
+@media (max-width: 600px) {
+  .__title-h1 {
+    font-size: 1.75rem;
+  }
+
+  .__title-h2 {
+    font-size: 1rem;
+  }
+
+  .__container_button .div_item {
+    padding: 0.5rem 2rem;
+    text-align: center;
+
+    .button_main_menu {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  }
+
+  .__div_item_project {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .projects {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+
+  .project {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .section_item {
+    font-size: 1.2rem;
+    margin: 20px;
+  }
+
+  .grid-projects {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    .project-card {
+      width: 90%;
+      max-width: 500px;
+    }
+  }
+
+  .nav_main_menu {
+    font-size: 1rem;
+  }
+}
