@@ -8,7 +8,7 @@ if (have_posts()): while (have_posts()): the_post(); ?>
     <h1 class="__title-h1"><?= get_the_title() ?></h1>
     <h2 class="__title-h2">Web Developper</h2>
     <div class="__container_button">
-        <button class="div_item" type="submit">
+        <button class="div_item " type="submit">
             <?php
             $links = dw_get_navigation_links('main');
             foreach ($links as $link):?>
@@ -39,7 +39,7 @@ if (have_posts()): while (have_posts()): the_post(); ?>
 
                 <a href="<?= $permalink; ?>" class="project__link">
                     <article class="projects">
-                        <div class="div__card__container">
+                        <div class="div__card__container animate-fade-up">
                             <h3 class="__header__item"><?= $title ?></h3>
                             <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
                         </div>

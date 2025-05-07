@@ -27,15 +27,52 @@
     padding: 0.5rem 10rem;
     font-size: 2rem;
     line-height: 50px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.02);
+    }
 
     .button_main_menu {
+      position: relative;
       font-family: variables.$font-title;
       font-size: 2rem;
       text-decoration: none;
       color: variables.$dark-font;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: variables.$dark-font;
+        transition: width 0.3s ease;
+
+        &:hover::after {
+          width: 100%;
+        }
+      }
     }
   }
 }
+// Animation d'entrée
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out;
+}
+
 .__header__item {
   font-family: variables.$font-title;
   font-size: 1.25rem;
@@ -155,7 +192,6 @@ a{
   justify-items: center;
 }
 
-// Site layout structure
 .site {
   min-height: 100vh;
   display: flex;
