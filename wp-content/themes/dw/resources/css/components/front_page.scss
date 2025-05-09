@@ -1,6 +1,7 @@
 @use "../utils/variables" as variables;
+
 .__title-h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
   font-family: variables.$font-title;
   line-height: 50px;
@@ -50,13 +51,15 @@
         background-color: variables.$dark-font;
         transition: width 0.3s ease;
 
-        &:hover::after {
-          width: 100%;
-        }
+      }
+
+      &:hover::after {
+        width: 100%;
       }
     }
   }
 }
+
 // Animation d'entrée
 @keyframes fadeUp {
   0% {
@@ -75,14 +78,15 @@
 
 .__header__item {
   font-family: variables.$font-title;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   margin: 10px 0;
   text-align: center;
   text-decoration: none;
   color: variables.$dark-font;
 
 }
-a{
+
+a {
   text-decoration: none;
 }
 
@@ -142,26 +146,30 @@ a{
     z-index: 1;
     padding: 1rem;
     text-align: center;
+  }
+}
+.story__fig {
+  width: 100%;
+  max-width: 310px;
+  height: auto;
+  border: solid 10px variables.$main-color;
+  border-radius: 8px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin: 0 auto;
 
-    .story__fig {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
+  &--picture {
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    aspect-ratio: 1;
   }
 }
 
-.show_project {
-  font-family: variables.$font-title;
-  font-size: 1.25rem;
-  margin: 10px;
-  text-align: center;
-  padding: 20px;
-}
+
 
 .section_item {
   font-family: variables.$font-title;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin: 40px;
 }
 
@@ -201,7 +209,8 @@ a{
     flex: 1;
   }
 }
-.svg_cat{
+
+.svg_cat {
   fill: none;
   stroke: #000;
   stroke-miterlimit: 10;
@@ -212,10 +221,20 @@ a{
   .__title-h1 {
     font-size: 1.75rem;
   }
+  .menu_links {
+    z-index: 10;
+    position: absolute;
+  }
+
 
   .__title-h2 {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
+  .__container_button {
+    z-index: 1;
+    position: relative;
+  }
+
 
   .__container_button .div_item {
     padding: 0.5rem 2rem;
@@ -244,11 +263,6 @@ a{
     padding: 1rem;
   }
 
-  .section_item {
-    font-size: 1.2rem;
-    margin: 20px;
-  }
-
   .grid-projects {
     display: flex;
     flex-direction: column;
@@ -260,8 +274,6 @@ a{
       max-width: 500px;
     }
   }
-
-  .nav_main_menu {
-    font-size: 1rem;
-  }
 }
+
+

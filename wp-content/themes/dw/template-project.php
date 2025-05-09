@@ -34,17 +34,19 @@ $terms = get_terms([
     'hide_empty' => false,
 ]);
 ?>
-<div class="">
-    <a href="<?= esc_url(get_permalink(get_the_ID())) ?>" class="<?= ($taxonomy === '') ? 'active-project' : ''; ?>">
+<div class="div_container_filter">
+<div class="div_filter">
+    <a href="<?= esc_url(get_permalink(get_the_ID())) ?>" class=" filter_link <?= ($taxonomy === '') ? 'active-project' : ''; ?>">
         <?= __('Tout', 'hepl-trad'); ?>
     </a>
     <?php foreach ($terms as $term): ?>
         <a href="<?= esc_url(get_permalink()) . '?filter=' . $term->slug; ?>"
-           class="<?= ($taxonomy === $term->slug) ? 'active-project' : ''; ?>">
+           class=" filter_link <?= ($taxonomy === $term->slug) ? 'active-project' : ''; ?>">
             <?= esc_html($term->name); ?>
         </a>
     <?php endforeach; ?>
 
+</div>
 </div>
 
 <div class="grid-projects">

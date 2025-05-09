@@ -4,15 +4,15 @@
 
 
 <section class="section_container">
-<div class="div_title_img">
+<h2 class="div_title_img">
     <?= $headline ?>
-</div>
+</h2>
 
 <?php if ($gallery): ?>
     <div class="gallery_flex_wrapper">
         <?php foreach ($gallery as $image): ?>
             <div class="div_container">
-                <?= responsive_image($image, ['classes' => 'project_img', 'lazy' => true]) ?>
+                <?= responsive_image($image, ['classes' => 'project_card', 'lazy' => true]) ?>
             </div>
         <?php endforeach; ?>
     </div>

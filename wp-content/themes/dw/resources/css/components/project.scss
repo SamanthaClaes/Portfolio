@@ -10,7 +10,7 @@
 
 .div_project_h2 {
   font-family: variables.$font-title;
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
@@ -19,6 +19,9 @@
   font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 106px;
+}
+.__div_item_project{
+  padding-bottom: 20px;
 }
 
 .section_container {
@@ -40,25 +43,57 @@
 
 .div_title_img {
   font-family: variables.$font-title;
-  font-size: 1.875rem;
+  font-size: 1.5rem;
   margin-bottom: 24px;
 }
 
-.story__fig {
-  border: solid 10px variables.$main-color;
-  border-radius: 8px;
-  aspect-ratio: 1;
-  width: calc(100% - 20px);
-  height: auto;
-  object-fit: cover;
 
-  &--picture {
-    height: calc(100% - 20px);
-    width: calc(100% - 20px);
-    aspect-ratio: 1;
-  }
+.show_project {
+  font-family: variables.$font-title;
+  font-size: 2rem;
+  margin: 10px;
+  text-align: center;
+  padding: 20px;
 }
 
 .project_img {
   border: 5px solid variables.$main-color;
 }
+.div_filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; // espace entre les "boutons"
+  justify-content: center;
+  margin: 20px;
+}
+
+  .filter_link {
+    padding: 0.5rem 1rem;
+    border: 3px solid variables.$main-color;
+    color: variables.$dark-font;
+    text-decoration: none;
+    border-radius: 8px;
+    font-family: variables.$font-body;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  .active-project{
+    background: variables.$secondary-color;
+  }
+
+  .project_card{
+    width: 100%;
+    max-width: 350px; // ajuste selon besoin
+    height: auto;
+    border: solid 10px variables.$main-color;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    object-fit: contain ;
+    margin: 0 auto;
+
+    &--picture {
+      height: calc(100% - 20px);
+      width: calc(100% - 20px);
+      aspect-ratio: 1;
+    }
+  }

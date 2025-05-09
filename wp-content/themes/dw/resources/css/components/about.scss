@@ -97,11 +97,16 @@
   align-content: flex-start;
   justify-content: center;
 
-  &__image {
-    margin-left: 20px;
-    margin-bottom: 40px;
+    &__image {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      margin-left: 20px;
+      margin-bottom: 40px;
+    }
   }
-}
+
 
 .div_project_h2 {
   padding-top: 20px;
@@ -132,11 +137,12 @@
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    font-size: 1rem;
   }
 
   .parcours,
   .card {
-    width: 90%;
+    width: 70%;
     margin-left: 0;
   }
 }

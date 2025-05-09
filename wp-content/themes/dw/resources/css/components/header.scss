@@ -19,6 +19,7 @@
   font-family: variables.$font-body;
   font-size: 1.25rem;
   font-weight: 200;
+  border-bottom: 5px solid transparent;
 
   &:hover {
     @media (min-width: 1024px) {
