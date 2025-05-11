@@ -9,22 +9,22 @@
 
 <section class="text-media">
     <div class="text-media__content-container">
-        <?php if ($supline !== '' && isset($supline)): ?>
+        <?php if (!empty($supline)): ?>
             <p class="text-media__content-supline">
                 <?= $supline ?>
             </p>
         <?php endif; ?>
-        <?php if ($headline !== '' && isset($headline)): ?>
+        <?php if (!empty($headline)): ?>
             <h2 class="text-media__content-headline">
                 <?= $headline ?>
             </h2>
         <?php endif; ?>
-        <?php if ($supline !== '' && isset($supline)): ?>
+        <?php if (!empty($subline)): ?>
             <p class="text-media__content-subline">
-                <?= $supline ?>
+                <?= $subline ?>
             </p>
         <?php endif; ?>
-        <?php if ($text !== '' && isset($text)): ?>
+        <?php if (!empty($text)): ?>
             <div class="text-media__content-text">
                 <?= $text ?>
             </div>

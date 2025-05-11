@@ -7,19 +7,23 @@ if (have_posts()): while (have_posts()): the_post(); ?>
 
     <h1 class="__title-h1"><?= get_the_title() ?></h1>
     <h2 class="__title-h2">Web Developper</h2>
-    <div class="__container_button">
-        <button class="div_item " type="submit">
+
+    <div class="__container_button" role="navigation" aria-label="Navigation principale">
+        <div class="div_item">
             <?php
             $links = dw_get_navigation_links('main');
-            foreach ($links as $link):?>
-                <a class="button_main_menu" href="<?=esc_url($link->href)?>">
-                    <?= esc_html($link->label)?>
+            foreach ($links as $link): ?>
+                <a class="button_main_menu"
+                   href="<?= esc_url($link->href) ?>"
+                   aria-label="Aller vers la section <?= esc_attr($link->label) ?>">
+                    <?= esc_html($link->label) ?>
                 </a>
-            <?php endforeach;?>
-        </button>
+            <?php endforeach; ?>
+        </div>
     </div>
-    <section class="section-projets">
-        <h2 class="section_item">Mes projets récents</h2>
+
+    <section class="section-projets" aria-labelledby="titre-projets" role="region">
+        <h2 id="titre-projets" class="section_item">Mes projets récents</h2>
 
         <div class="__div_item_project">
             <?php
@@ -37,24 +41,22 @@ if (have_posts()): while (have_posts()): the_post(); ?>
                 $permalink = get_the_permalink();
                 ?>
 
-                <a href="<?= $permalink; ?>" class="project__link">
+                <a href="<?= $permalink; ?>" class="project__link" aria-label="Voir le projet <?= esc_attr($title) ?>">
                     <article class="projects">
                         <div class="div__card__container animate-fade-up">
                             <h3 class="__header__item"><?= $title ?></h3>
-                            <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
+                            <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true, 'alt' => $title]) ?>
                         </div>
                     </article>
                 </a>
 
-
             <?php endwhile; else: ?>
-                <p>Je n'ai aucun projet a vous montrer.</p>
+                <p>Je n'ai aucun projet à vous montrer.</p>
             <?php endif; ?>
-
         </div>
     </section>
 
-    <div class="svg_cat">
+    <div class="svg_cat" aria-hidden="true">
         <svg class="surprise" id="Chat" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1140 1024"
              width="200" height="200">
             <path id="svg_3" class="cat"

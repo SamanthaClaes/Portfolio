@@ -5,24 +5,25 @@
 <?php $class = get_sub_field('cs_class') ?>
 
 <div class="div_container_section">
-<section class="section_container <?= $class !== '' ? $class : '' ?>">
-    <?php if ($headline !== '' && isset($headline)): ?>
-        <h2 class="div_project_h2">
-            <?= $headline ?>
-        </h2>
-    <?php endif; ?>
-    <div class="parcours_card">
-    <?php if ($text !== '' && isset($text)): ?>
-        <div class="div_project_text">
-            <?= $text ?>
+    <section class="section_container <?= $class !== '' ? $class : '' ?>">
+        <?php if (!empty($headline)): ?>
+            <h2 class="div_project_h2">
+                <?= $headline ?>
+            </h2>
+        <?php endif; ?>
+        <div class="parcours_card">
+            <?php if (!empty($text)): ?>
+                <div class="div_project_text">
+                    <?= $text ?>
+                </div>
+            <?php endif; ?>
         </div>
-    </div>
-    <?php endif; ?>
-    <?php if (!empty($link)): ?>
-        <a href="<?= $link['url'] ?>" target="<?= $link['target'] ?>"
-           title="<?= $link['title'] ?>"><?= $link['title'] ?></a>
-    <?php endif; ?>
-</section>
+
+        <?php if (!empty($link)): ?>
+            <a href="<?= $link['url'] ?>" target="<?= $link['target'] ?>"
+               title="<?= $link['title'] ?>"><?= $link['title'] ?></a>
+        <?php endif; ?>
+    </section>
 </div>
 
 
