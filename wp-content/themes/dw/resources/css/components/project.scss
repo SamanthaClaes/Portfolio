@@ -4,96 +4,188 @@
   font-family: variables.$font-title;
   font-size: 2rem;
   text-align: center;
-  margin-top: 40px;
-  margin-bottom: 150px;
+  margin-top: 4.375rem;
+  margin-bottom: 2.5rem;
+  color: variables.$text-color;
+}
+
+.content-section__project {
+  text-align: center;
 }
 
 .div_project_h2 {
   font-family: variables.$font-title;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  color: variables.$text-color;
 }
 
-.div_project_text {
+.show_project {
+  font-family: variables.$font-title;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1.25rem;
+  max-width: 50rem;
+  margin: 0.625rem auto;
+  color: variables.$text-color;
+}
+
+.content-section__text {
   font-family: variables.$font-body;
+  text-align: center;
   font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 106px;
-}
-.__div_item_project{
-  padding-bottom: 20px;
+  line-height: 2;
+  margin-bottom: 6.625rem;
+  max-width: 40.625rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.section_container {
-  margin-left: 20px;
+.project-list {
+  margin: 6rem auto;
+  max-width: 75rem;
+}
+
+.content-section__inner {
+  margin-left: 1.25rem;
 }
 
 .gallery_flex_wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 30px;
+  gap: 1rem;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0;
+  -ms-overflow-style: none; /*enlève la barre de defilement sur  IE et Edge */
+  scrollbar-width: none; /*enlève la barre de défilement sur firefox*/
+  &::-webkit-scrollbar {
+    display: none; /*enlève la barre de défilement SAFARI, chrome, opera*/
+  }
 }
 
-.div_container {
+.gallery__item {
   flex: 1 1 1;
   box-sizing: border-box;
-  margin-bottom: 75px;
+  margin-bottom: 4.6875rem;
+  background: #FFFFFF;
+  max-width: 21.875rem;
 }
 
-.div_title_img {
+.content-section__title {
   font-family: variables.$font-title;
   font-size: 1.5rem;
-  margin-bottom: 24px;
-}
-
-
-.show_project {
-  font-family: variables.$font-title;
-  font-size: 2rem;
-  margin: 10px;
+  margin-bottom: 1.5rem;
+  color: variables.$text-color;
   text-align: center;
-  padding: 20px;
 }
 
-.project_img {
-  border: 5px solid variables.$main-color;
+.pagination {
+  text-align: center;
+  padding-bottom: 1.25rem;
+  font-family: variables.$font-body;
+  color: variables.$text-color;
+  font-size: 1.2rem;
 }
+
 .div_filter {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; // espace entre les "boutons"
+  gap: 0.625rem;
   justify-content: center;
-  margin: 20px;
+  max-width: 40rem;
+  margin: 1.25rem auto;
 }
 
-  .filter_link {
-    padding: 0.5rem 1rem;
-    border: 3px solid variables.$main-color;
-    color: variables.$dark-font;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: variables.$font-body;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-  }
-  .active-project{
-    background: variables.$secondary-color;
+.filter_link {
+  padding: 0.5rem 1rem;
+  border: 0.16rem solid variables.$border;
+  color: variables.$text-color;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-family: variables.$font-body;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.active-project {
+  background: variables.$main-color;
+}
+
+.cards_projects {
+  width: 100%;
+  max-width: 19.375rem;
+  height: auto;
+  border: solid 0.16rem variables.$text-color;
+  border-radius: 0.5rem;
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.project_card {
+  width: 100%;
+  max-width: 21.875rem;
+  height: auto;
+  border: solid 0.16rem variables.$text-color;
+  border-radius: 0.5rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.content-section__inner {
+  text-align: center;
+  padding-bottom: 2.5rem;
+}
+
+.div-btn_container {
+  background: variables.$main-color;
+  font-family: variables.$font-title;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 2rem;
+  font-size: 2rem;
+  line-height: 3.125rem;
+  transition: transform 0.3s ease;
+  margin: 2.5rem;
+
+  &:hover {
+    transform: scale(1.02);
   }
 
-  .project_card{
-    width: 100%;
-    max-width: 350px; // ajuste selon besoin
-    height: auto;
-    border: solid 10px variables.$main-color;
-    border-radius: 8px;
-    aspect-ratio: 1;
-    object-fit: contain ;
-    margin: 0 auto;
+}
 
-    &--picture {
-      height: calc(100% - 20px);
-      width: calc(100% - 20px);
-      aspect-ratio: 1;
-    }
+a.moulin {
+  color: variables.$text-color;
+  font-family: variables.$font-title;
+  font-size: 1.5rem;
+
+}
+
+
+@media (max-width: 600px) {
+  .stage__headline {
+    font-size: 1.8rem;
   }
+
+  .content-section__text {
+    max-width: 300px;
+    line-height: 1.5;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .gallery_flex_wrapper {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 1rem;
+  }
+
+  .gallery__item {
+    flex: 0 0 auto;
+    width: 16rem;
+    scroll-snap-align: start;
+  }
+}
