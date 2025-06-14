@@ -1,38 +1,65 @@
 @use "../utils/variables" as variables;
 
-
-.page_about {
+.footer {
   font-family: variables.$font-body;
   font-size: 0.875rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background: variables.$secondary-color;
+  flex-direction: column;
+  justify-content: center;
+  background: variables.$main-color;
   padding: 1.25rem;
+  align-items: center;
+  gap: 1rem;
 
-  .ul_footer {
-    list-style-type: none;
+  &__info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     gap: 0.625rem;
     line-height: 1.25rem;
+    color: variables.$text-color;
+    text-align: center;
   }
 
-  .__svg {
+  &__social {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 0.9375rem;
 
     a {
       display: inline-flex;
       align-items: center;
-
-      svg {
-        width: 30px;
-        height: 30px;
-      }
     }
+  }
 
-    .insta {
+  &__icon {
+    width: 1.875rem;
+    height: 1.875rem;
+    fill: variables.$text-color;
+
+    &--instagram {
       fill-rule: evenodd;
     }
+  }
+  .coordonnates{
+    font-weight: 700;
+  }
+  .mail{
+    color: variables.$text-color;
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0;
+
+    &__info {
+      text-align: left;
+    }
+
   }
 }
