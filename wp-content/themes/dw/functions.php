@@ -1,6 +1,6 @@
 <?php
 
-if(session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 // Gutenberg est le nouvel éditeur de contenu propre à Wordpress
@@ -72,6 +72,7 @@ function dw_asset(string $file): string
 
     return get_template_directory_uri() . '/public/' . $file;
 }
+
 // Activer l'utilisation des vignettes (image de couverture) sur nos post types:
 add_theme_support('post-thumbnails', ['recipe', 'trip',]);
 
@@ -86,11 +87,14 @@ register_post_type('project', [
     'menu_icon' => 'dashicons-format-gallery',
     'public' => true,
     'has_archive' => true,
+    'show_ui' => true,
     'rewrite' => [
         'slug' => 'projects',
     ],
     'supports' => ['title', 'thumbnail'],
 ]);
+
+
 
 // Paramétrer des tailles d'images pour le générateur de thumbnails de Wordpress :
 
@@ -135,8 +139,6 @@ function dw_get_navigation_links(string $location): array
 }
 
 // ajouter taxonomie sir les post_types
-
-
 
 
 function hepl_trad_load_textdomain(): void
@@ -191,7 +193,7 @@ add_action('acf/init', 'create_site_options_page');
 add_action('admin_post_dw_contact_form_submit', 'dw_handle_contact_form_submit');
 add_action('admin_post_nopriv_dw_contact_form_submit', 'dw_handle_contact_form_submit');
 
-require_once(__DIR__.'/form/ContactForm.php');
+require_once(__DIR__ . '/form/ContactForm.php');
 
 register_post_type('contact_message', [
     'label' => 'Messages',
@@ -200,7 +202,7 @@ register_post_type('contact_message', [
     'show_ui' => true,
     'menu_position' => 10,
     'menu_icon' => 'dashicons-email',
-    'supports' => ['title','editor'],
+    'supports' => ['title', 'editor'],
 ]);
 
 function dw_handle_contact_form_submit()
@@ -223,7 +225,7 @@ function dw_handle_contact_form_submit()
 
 
 /*ajouter la photo de moi sur la page about*/
-add_action('acf/init', function() {
+add_action('acf/init', function () {
     acf_add_local_field_group([
         'key' => 'group_about_image',
         'title' => 'Photo page About',
@@ -255,7 +257,7 @@ add_action('acf/init', function() {
  * Elle utilise les fonctions natives de WordPress pour récupérer les différentes tailles d'image
  * et ainsi permettre au navigateur de choisir la version la plus adaptée à l'affichage.
  *
- * @param mixed $image    ID de l'image, tableau contenant la clé 'ID' ou URL de l'image.
+ * @param mixed $image ID de l'image, tableau contenant la clé 'ID' ou URL de l'image.
  * @param array $settings Tableau d'options complémentaires :
  *                        - 'lazy'    => attribut loading (default: "eager").
  *                        - 'classes' => classes CSS à ajouter à la balise <img>.
@@ -308,12 +310,12 @@ function responsive_image($image, $settings): bool|string
         <!-- Ici, vous pouvez ajouter manuellement des balises <source> pour d'autres formats (WebP, AVIF, etc.)
              si ces formats sont disponibles via un plugin ou un traitement personnalisé. -->
         <img
-            src="<?= esc_url($src) ?>"
-            alt="<?= esc_attr($alt) ?>"
-            loading="<?= esc_attr($lazy) ?>"
-            srcset="<?= esc_attr($srcset) ?>"
-            sizes="<?= esc_attr($sizes) ?>"
-            class="<?= esc_attr($classes) ?>">
+                src="<?= esc_url($src) ?>"
+                alt="<?= esc_attr($alt) ?>"
+                loading="<?= esc_attr($lazy) ?>"
+                srcset="<?= esc_attr($srcset) ?>"
+                sizes="<?= esc_attr($sizes) ?>"
+                class="<?= esc_attr($classes) ?>">
     </picture>
     <?php
     return ob_get_clean();
