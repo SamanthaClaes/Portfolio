@@ -1,0 +1,1 @@
+console.log("test");console.log("test du header");document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector("header");e&&e.classList.add("animate-slide-in")});document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".animated-submit");e&&e.addEventListener("click",()=>{e.classList.add("clicked")})});
