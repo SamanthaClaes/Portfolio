@@ -6,6 +6,8 @@
 <?php $image = get_sub_field('image') ?>
 <?php $media_position = get_sub_field('media_position') ?>
 <?php $media_type = get_sub_field('media_type') ?>
+<?php $class = get_sub_field('cs_class') ?>
+
 
 <section class="text-media">
     <div class="text-media__content-container">
@@ -38,7 +40,7 @@
         <?php endif; ?>
     </div>
     <?php if (!empty($image)): ?>
-        <div class="text-media__position text-media__position--<?= $media_position ?>">
+        <div class="text-media__position text-media__position-- <?= $class !== '' ? $class : '' ?> <?= $media_position ?>">
             <?= responsive_image($image, ['classes' => 'text-media__image', 'lazy' => true]) ?>
         </div>
     <?php endif; ?>
