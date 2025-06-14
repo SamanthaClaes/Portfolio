@@ -1,13 +1,25 @@
 {
   "wp-content/themes/dw/resources/css/styles.scss": {
-    "file": "assets/css-BC3nUSMl.css",
+    "file": "assets/css-Dc2lMrrL.css",
     "src": "wp-content/themes/dw/resources/css/styles.scss",
     "isEntry": true
   },
+  "wp-content/themes/dw/resources/font/DaysOne-Regular.ttf": {
+    "file": "assets/DaysOne-Regular-B-Sb6OTb.ttf",
+    "src": "wp-content/themes/dw/resources/font/DaysOne-Regular.ttf"
+  },
+  "wp-content/themes/dw/resources/img/paillettes.jpg": {
+    "file": "assets/paillettes-Bddf3xAi.jpg",
+    "src": "wp-content/themes/dw/resources/img/paillettes.jpg"
+  },
   "wp-content/themes/dw/resources/js/main.js": {
-    "file": "assets/js-D1Hus7KK.js",
+    "file": "assets/js-Cx9ksvwg.js",
     "name": "js",
     "src": "wp-content/themes/dw/resources/js/main.js",
     "isEntry": true
+  },
+  "wp-content/themes/dw/resources/svg/fleur.svg": {
+    "file": "assets/fleur-BMvhszIr.svg",
+    "src": "wp-content/themes/dw/resources/svg/fleur.svg"
   }
 }
