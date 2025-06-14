@@ -1,11 +1,21 @@
-@use "../utils/variables";
+@use "../utils/variables" as variables;
+
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  main {
+    flex: 1;
+  }
+}
 
 .container_logo {
-  background: variables.$secondary-color;
+  background: variables.$main-color;
   padding: 20px;
 }
 
-.header__nav {
+.nav_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,19 +23,8 @@
   position: relative;
 }
 
-.nav__link {
-  text-decoration: none;
-  color: variables.$dark-font;
-  font-family: variables.$font-body;
-  font-size: 1.25rem;
-  font-weight: 200;
-  border-bottom: 5px solid transparent;
-
-  &:hover {
-    @media (min-width: 1024px) {
-      border-bottom: 5px solid variables.$main-color;
-    }
-  }
+.house {
+  fill: variables.$text-color;
 }
 
 .menu_icon {
@@ -39,12 +38,12 @@
     display: block;
     height: 3px;
     width: 25px;
-    background: variables.$dark-font;
     border-radius: 2px;
+    background: variables.$text-color;
   }
 }
 
-.nav__toggle {
+.menu-toggle {
   display: none;
 }
 
@@ -55,86 +54,125 @@
   align-content: center;
 }
 
-@media (min-width: 300px) and (max-width: 600px) {
-  .header__nav {
-    justify-content: space-between;
-    padding: 0 20px;
-  }
+.nav_main_menu {
+  text-decoration: none;
+  color: variables.$text-color;
+  font-family: variables.$font-body;
+  font-size: 1.25rem;
+  font-weight: 400;
+  border-bottom: 5px solid transparent;
+}
 
+
+.nav_header {
+  padding: 0 20px;
+}
+
+.house {
+  position: absolute;
+  left: 90%;
+  bottom: 15%;
+}
+
+.menu_icon {
+  display: flex;
+  order: -1;
+  margin-right: auto;
+  z-index: 2;
+  color: variables.$text-color;
+}
+
+.menu_links {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: variables.$main-color;
+  flex-direction: column;
+  gap: 0;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  box-sizing: border-box;
+  transform-origin: top center;
+  opacity: 0;
+  transform: translateY(-20px) scaleY(0.95);
+  transition: max-height 0.4s ease,
+  padding 0.3s ease,
+  opacity 0.3s ease,
+  transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.menu-toggle:checked ~ .menu_links {
+  max-height: 500px;
+  padding: 20px;
+  opacity: 1;
+  transform: translateY(0) scaleY(1);
+}
+
+.nav_main_menu {
+  padding: 15px 0;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.menu-toggle:checked ~ .menu_links .nav_main_menu {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+header {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-slide-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+@media (min-width: 1024px) {
+  .nav_header {
+    padding: 0;
+  }
   .house {
-    position: absolute;
-    left: 90%;
-    bottom: 15%;
+    position: static;
   }
 
   .menu_icon {
-    display: flex;
-    order: -1;
-    margin-right: auto;
-    z-index: 2;
+    display: none;
   }
 
   .menu_links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: variables.$secondary-color;
-    flex-direction: column;
-    gap: 0;
-    max-height: 0;
-    overflow: hidden;
-    padding: 0 20px;
-    box-sizing: border-box;
-    transform-origin: top center;
-    opacity: 0;
-    transform: translateY(-20px) scaleY(0.95);
-    transition:
-            max-height 0.4s ease,
-            padding 0.3s ease,
-            opacity 0.3s ease,
-            transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .nav__toggle:checked ~ .menu_links {
-    max-height: 500px;
-    padding: 20px;
+    position: static;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    max-height: none;
     opacity: 1;
-    transform: translateY(0) scaleY(1);
+    transform: none;
+    padding: 0;
   }
 
-  .nav__link {
-    padding: 15px 0;
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-
-  .nav__toggle:checked ~ .menu_links .nav__link {
+  .nav_main_menu {
     opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.2s;
-  }
+    transform: none;
+    position: relative;
+    padding: 0.5rem;
 
-  .backInDown {
-    animation-name: backInDown;
-    animation-duration: 0.6s;
-    animation-timing-function: ease-in-out;
-  }
-
-  @keyframes backInDown {
-    0% {
-      transform: translateY(-1200px) scale(0.7);
-      opacity: 0.7;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0.125rem;
+      background-color: variables.$text-color;
+      transition: width 0.3s ease;
     }
-
-    80% {
-      transform: translateY(0px) scale(0.7);
-      opacity: 0.7;
-    }
-
-    100% {
-      transform: scale(1);
-      opacity: 1;
+    &:hover::after {
+      width: 100%;
     }
   }
 }
