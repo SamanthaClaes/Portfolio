@@ -3,7 +3,7 @@
 <?php include('templates/content/stage/stage.php') ?>
 <?php include('templates/content/flexible.php') ?>
 
-    <div class="__div_item_project">
+    <div class="project-list">
         <?php
         $projects = new WP_Query([
             'post_type' => 'project',
@@ -19,15 +19,15 @@
             $text = get_field('text', get_the_ID());
             $permalink = get_the_permalink();
             ?>
-            <a href="<?= $permalink; ?>" class="project__link">
-                <article class="projects">
+            <a href="<?= $permalink; ?>" class="project-card__link">
+                <article class="project-card">
                     <?php /* Le "a" est en dehors de la carte "story__card" afin de pouvoir
                         garder un lien propre (accessibilité), rajouter du contenu utile
                         (référençabilité) tout en gardant un design attractif. */ ?>
                     <span class="sro"> <?= __hepl('Accéder à ce projet') ?></span>
-                    <div class="div__card__container">
-                        <h3 class="__header__item"><?= $title ?></h3>
-                        <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
+                    <div class="project-card__content">
+                        <h3 class="project-card__title"><?= $title ?></h3>
+                        <?= responsive_image($image, ['classes' => 'cards_projects', 'lazy' => true]) ?>
                     </div>
                 </article>
             </a>

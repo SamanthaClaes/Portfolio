@@ -1,9 +1,9 @@
 <?php /* template Name: Template "template-project */?>
 <?php get_header(); ?>
 
-
+<section>
 <h2 class="show_project">Découvrez mes projets</h2>
-
+</section>
 <?php
 $paged = get_query_var('paged') ? get_query_var('paged') : 1;
 $taxonomy = isset($_GET['filter']) ? sanitize_text_field($_GET['filter']) : '';
@@ -56,13 +56,13 @@ $terms = get_terms([
         ?>
         <article class="project-card">
             <!-- Lien couvrant toute la carte -->
-            <a href="<?= get_permalink(); ?>" class="project__link">
+            <a href="<?= get_permalink(); ?>" class="project-card__link">
                 <span class="sro"><?= __('Accéder à ce projet') ?></span>
             </a>
 
             <!-- Contenu de la carte -->
-            <div class="div__card__container">
-                <h3 class="__header__item"><?= $title ?></h3>
+            <div class="project-card__content">
+                <h3 class="project-card__title"><?= $title ?></h3>
                 <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true]) ?>
             </div>
         </article>
@@ -94,18 +94,15 @@ $terms = get_terms([
 if ($query->have_posts()) :
     while ($query->have_posts()) : $query->the_post();
         ?>
-        <article>
-            <?php $title = get_field('headline', get_the_ID()) ?>
-            <div><?php the_excerpt(); ?></div>
-        </article>
+
     <?php
     endwhile;
     echo '<div class="pagination">';
     echo paginate_links(array(
         'total' => $query->max_num_pages,
         'current' => $paged,
-        'prev_text' => __hepl('&laquo; Précédent'),
-        'next_text' => __hepl('Suivant &raquo;'),
+        'prev_text' => __hepl('&laquo;'),
+        'next_text' => __hepl(' &raquo;'),
     ));
     echo '</div>';
     wp_reset_postdata();

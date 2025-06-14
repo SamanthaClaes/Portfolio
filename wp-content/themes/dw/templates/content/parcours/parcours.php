@@ -7,8 +7,8 @@
     <div class="parcours__grid <?= $class !== '' ? $class : '' ?>">
         <?php foreach ($experiences as $ex): ?>
             <article class="parcours">
-                <h3 class="div_project_h2"><?= $ex['year'] ?></h3>
-                <div class="parcours_card">
+                <h3 class="content-section__title"><?= $ex['year'] ?></h3>
+                <div class="content-section__card">
                     <?= $ex['experience'] ?>
                 </div>
             </article>
