@@ -4,16 +4,17 @@
 // On ouvre "la boucle" (The Loop), la structure de contrôle
 // de contenu propre à Wordpress:
 if (have_posts()): while (have_posts()): the_post(); ?>
-
-    <h1 class="__title-h1"><?= get_the_title() ?></h1>
-    <h2 class="__title-h2">Web Developper</h2>
-
-    <div class="__container_button" role="navigation" aria-label="Navigation principale">
-        <div class="div_item">
+<section>
+    <h1 class="intro-section__title"><?= get_the_title() ?></h1>
+    <h2 class="intro-section__subtitle">Développeuse web</h2>
+    <p class="intro-text__paragraph">Je m'appelle Samantha Claes, étudiante en développement web passionnée par la création de sites modernes, accessibles et bien structurés. Ce portfolio a été réalisé dans le cadre du cours de design web afin de présenter mes compétences techniques, mes projets récents et ma progression. Vous y trouverez une sélection de réalisations mettant en avant mon travail en HTML, SCSS et WordPress.</p>
+</section>
+    <div class="main-nav__container" role="navigation" aria-label="Navigation principale">
+        <div class="main-nav__item">
             <?php
             $links = dw_get_navigation_links('main');
             foreach ($links as $link): ?>
-                <a class="button_main_menu"
+                <a class="main-nav__link"
                    href="<?= esc_url($link->href) ?>"
                    aria-label="Aller vers la section <?= esc_attr($link->label) ?>">
                     <?= esc_html($link->label) ?>
@@ -22,10 +23,10 @@ if (have_posts()): while (have_posts()): the_post(); ?>
         </div>
     </div>
 
-    <section class="section-projets" aria-labelledby="titre-projets" role="region">
-        <h2 id="titre-projets" class="section_item">Mes projets récents</h2>
+    <section class="project-section" aria-labelledby="titre-projets" role="region">
+        <h2 id="titre-projets" class="project-section__heading">Mes projets récents</h2>
 
-        <div class="__div_item_project">
+        <div class="project-list">
             <?php
             $projects = new WP_Query([
                 'post_type' => 'project',
@@ -41,10 +42,10 @@ if (have_posts()): while (have_posts()): the_post(); ?>
                 $permalink = get_the_permalink();
                 ?>
 
-                <a href="<?= $permalink; ?>" class="project__link" aria-label="Voir le projet <?= esc_attr($title) ?>">
-                    <article class="projects">
-                        <div class="div__card__container animate-fade-up">
-                            <h3 class="__header__item"><?= $title ?></h3>
+                <a href="<?= $permalink; ?>" class="project-card__link" aria-label="Voir le projet <?= esc_attr($title) ?>">
+                    <article class="project-card">
+                        <div class="project-card__content animate-fade-up">
+                            <h3 class="project-card__title"><?= $title ?></h3>
                             <?= responsive_image($image, ['classes' => 'story__fig', 'lazy' => true, 'alt' => $title]) ?>
                         </div>
                     </article>
