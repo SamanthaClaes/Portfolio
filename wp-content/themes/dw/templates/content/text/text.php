@@ -4,24 +4,25 @@
 <?php $image = get_sub_field('image') ?>
 <?php $class = get_sub_field('cs_class') ?>
 
-<div class="div_container_section">
-    <section class="section_container <?= $class !== '' ? $class : '' ?>">
+<div class="content-section">
+    <section class="content-section__inner">
         <?php if (!empty($headline)): ?>
-            <h2 class="div_project_h2">
+            <h2 class="content-section__title content-section__project">
                 <?= $headline ?>
             </h2>
         <?php endif; ?>
-        <div class="parcours_card">
+        <div class="content-section__card">
             <?php if (!empty($text)): ?>
-                <div class="div_project_text">
+                <div class="content-section__text">
                     <?= $text ?>
                 </div>
             <?php endif; ?>
         </div>
-
         <?php if (!empty($link)): ?>
-            <a href="<?= $link['url'] ?>" target="<?= $link['target'] ?>"
+        <div class="div-btn_container">
+            <a class="<?= $class !== '' ? $class : '' ?>" href="<?= $link['url'] ?>" target="<?= $link['target'] ?>"
                title="<?= $link['title'] ?>"><?= $link['title'] ?></a>
+        </div>
         <?php endif; ?>
     </section>
 </div>
