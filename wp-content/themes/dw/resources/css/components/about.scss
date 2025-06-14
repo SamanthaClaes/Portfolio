@@ -1,22 +1,51 @@
 @use "../utils/variables" as variables;
 
-
-.text-media__content-text,
-.div_p_items {
-  margin-left: 20px;
+.text-media__content-text {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
   font-family: variables.$font-body;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.8;
+  max-width: 37.5rem;
+  text-align: center;
+}
+
+.content-section__title {
+  font-family: variables.$font-title;
+  text-align: center;
+  color: variables.$text-color;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .section_item_title {
   font-family: variables.$font-title;
   font-size: 1.875rem;
-  margin: 70px 0 60px 20px;
+  margin: 4.375rem 0 3.75rem 1.25rem;
+  max-width: 50rem;
 }
 
 .ul_div_flex {
-  margin-left: 20px;
+  margin-left: 1.25rem;
+  max-width: 40rem;
+}
+
+.section_container_title {
+  color: variables.$text-color;
+  margin: 1.25rem;
+  font-family: variables.$font-title;
+  font-size: 1.5rem;
+  max-width: 40rem;
+  text-align: center;
+}
+
+.text-media__content-headline {
+  margin: 1.25rem;
+  font-family: variables.$font-title;
+  font-size: 1.5rem;
+  color: variables.$text-color;
+  max-width: 40rem;
+  text-align: center;
 }
 
 .card_title {
@@ -25,9 +54,18 @@
   font-weight: 700;
   margin-bottom: 1rem;
   text-align: center;
+  max-width: 30rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card {
+  max-width: 20rem;
+  width: 70%;
+  margin-left: 0;
+  margin-right: 0;
+  line-height: 1.5;
+
   span {
     display: block;
     font-size: 0.875rem;
@@ -36,113 +74,151 @@
   }
 }
 
-.p_item_ {
-  font-family: variables.$font-body;
+.text-media__content-container {
+  max-width: 350px;
+  text-align: left;
+}
+
+.text-media__position,
+.text-media {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.section-wrapper,
+.section__card,
+.parcours__grid,
+.comp_skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
   font-size: 1rem;
 }
 
-.text-media__position {
-  display: flex;
-  flex-direction: row;
-}
-
-.div_container_section {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-}
-
 .parcours {
-  background-color: variables.$secondary-color;
+  background-color: variables.$main-color;
   padding: 1rem;
-  border: 10px solid variables.$main-color;
+  border: 0.16rem solid variables.$border;
   border-radius: 0.5rem;
-  min-height: 180px;
+  min-height: 11.25rem;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
   font-family: variables.$font-body;
-  margin-left: 20px;
   text-align: center;
+  width: 70%;
+  margin-left: 0;
+  max-width: 20rem;
 }
 
 .parcours__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-right: 20px;
+  margin: 1.25rem;
+  max-width: 100%;
 }
 
 .comp_skills {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  max-width: 100%;
 }
 
-.parcours_card {
-  display: flex;
-  flex-direction: row;
+.content-section__card {
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: space-between;
-}
-
-.section_container_title {
-  margin: 40px 0 24px 20px;
+  justify-content: center;
+  max-width: 75rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .text-media {
-  display: flex;
-  flex-direction: row-reverse;
   align-content: flex-start;
-  justify-content: center;
+  justify-content: flex-end;
 
-    &__image {
-      max-width: 200px;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      margin-left: 20px;
-      margin-bottom: 40px;
-    }
+  &__image {
+    max-width: 12.5rem;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 1.25rem;
+    margin-top: 1.25rem;
+    margin-left: 0;
+    border-radius: 8px;
+    border: .16rem solid variables.$border;
   }
-
-
-.div_project_h2 {
-  padding-top: 20px;
 }
 
-// Responsive
-@media (min-width: 300px) and (max-width: 600px) {
-  .text-media,
+.div_project_h2 {
+  padding-top: 1.25rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
   .text-media__position {
-    flex-direction: column-reverse;
-    align-items: center;
+    flex-direction: row;
+    max-width: 75rem;
   }
 
-  .text-media__image {
-    margin-left: 0;
-    margin-bottom: 20px;
+  .section-wrapper {
+    flex-direction: row;
+    gap: 1.875rem;
+    max-width: 75rem;
+  }
+
+  .parcours {
+    min-height: 11.25rem;
+    max-width: 30rem;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: unset;
+  }
+
+  .card {
+    max-width: 30rem;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: unset;
+  }
+
+  .parcours__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    font-size: unset;
+  }
+
+  .comp_skills {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    font-size: unset;
+  }
+
+  .section__card,
+  .section-wrapper {
+    display: grid;
+    font-size: unset;
+  }
+
+  .content-section__card {
+    flex-direction: row;
+  }
+
+  .text-media {
+    flex-direction: row-reverse;
+  }
+
+  .text-media__content-container {
+    max-width: 700px;
   }
 
   .text-media__content-text {
-    margin-left: 20px;
+    text-align: left;
   }
-
-  .div_container_section,
-  .parcours_card,
-  .parcours__grid,
-  .comp_skills {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    font-size: 1rem;
-  }
-
-  .parcours,
-  .card {
-    width: 70%;
-    margin-left: 0;
+  .section_container_title{
+    text-align: left;
   }
 }
