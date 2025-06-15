@@ -1,3 +1,8 @@
+Pour plus de facilité vous pouvez retrouver le lien de mon figma ci-dessous : 
+https://www.figma.com/design/JuhNaZ6MxauNpg5DwixffJ/Portfolio?node-id=144-13&t=qNpdjb10RxN7fJ0L-1
+
+
+
 🛠️ Technologies utilisées
 
     WordPress : gestion de contenu (CMS)
